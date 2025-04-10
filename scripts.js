@@ -1,18 +1,14 @@
-window.addEventListener('DOMContentLoaded', () => {
-  const elements = document.querySelectorAll('.fade-in');
-  const options = {
-    threshold: 0.3,
-  };
+const elements = document.querySelectorAll('.fade-in');
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      } else {
-        entry.target.classList.remove('visible');
-      }
-    });
-  }, options);
+function revealOnScroll() {
+  const windowHeight = window.innerHeight;
+  elements.forEach(el => {
+    const elementTop = el.getBoundingClientRect().top;
+    if (elementTop < windowHeight - 100) {
+      el.classList.add('visible');
+    }
+  });
+}
 
-  elements.forEach(el => observer.observe(el));
-});
+window.addEventListener('scroll', revealOnScroll);
+window.addEventListener('load', revealOnScroll);
